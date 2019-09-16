@@ -1,7 +1,7 @@
 import React from 'react'
 import { ReactComponent as Logo } from '@oceanprotocol/art/logo/logo-white.svg'
 import './App.scss'
-import networks from './networks.json'
+import atlas from '@ethereum-navigator/atlas'
 import Network from './Network'
 
 export default function App() {
@@ -17,9 +17,14 @@ export default function App() {
       </header>
 
       <div className="networks">
-        {networks.map((network, i) => (
-          <Network key={i} network={network} />
-        ))}
+        {atlas
+          .filter(
+            item => item.project === 'Ocean Protocol' && item.name !== 'Spree'
+          )
+          .reverse()
+          .map((network, i) => (
+            <Network key={i} network={network} />
+          ))}
       </div>
     </div>
   )
