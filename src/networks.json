@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Pacific",
+    "type": "Mainnet",
+    "url": "https://pacific.oceanprotocol.com",
+    "explorer": "https://submarine.oceanprotocol.com"
+  },
+  {
+    "name": "Nile",
+    "type": "Testnet",
+    "url": "https://nile.dev-ocean.com",
+    "explorer": "https://submarine.nile.dev-ocean.com"
+  },
+  {
+    "name": "Duero",
+    "type": "Testnet",
+    "url": "https://duero.dev-ocean.com",
+    "explorer": "https://submarine.duero.dev-ocean.com"
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "extends": [
+    "oceanprotocol",
+    "oceanprotocol/react",
+    "prettier/react",
+    "prettier/standard",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["prettier"],
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jest": true
+  },
+  "settings": {
+    "react": {
+      "version": "16.8"
+    }
+  }
+}

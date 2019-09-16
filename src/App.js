@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { ReactComponent as Logo } from '@oceanprotocol/art/logo/logo-white.svg'
+import './App.scss'
+import networks from './networks.json'
+import Network from './Network'
 
-function App() {
+export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      <header className="header">
+        <Logo />
+        <h1>Ocean Protocol Status</h1>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Testing all RPC network connections from your browser, refreshed every
+          5 sec.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
       </header>
-    </div>
-  );
-}
 
-export default App;
+      <div className="networks">
+        {networks.map((network, i) => (
+          <Network key={i} network={network} />
+        ))}
+      </div>
+    </div>
+  )
+}
