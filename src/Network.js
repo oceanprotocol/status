@@ -1,70 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import axios from 'axios'
-
-// Measure response time and deliver as `response.duration`
-axios.interceptors.request.use(
-  config => {
-    config.metadata = { startTime: new Date() }
-    return config
-  },
-  error => Promise.reject(error)
-)
-
-axios.interceptors.response.use(
-  response => {
-    response.config.metadata.endTime = new Date()
-    response.duration =
-      response.config.metadata.endTime - response.config.metadata.startTime
-    return response
-  },
-  error => {
-    error.config.metadata.endTime = new Date()
-    error.duration =
-      error.config.metadata.endTime - error.config.metadata.startTime
-    return Promise.reject(error)
-  }
-)
-
-async function getStatusAndBlock(network, setStatus, setBlock, setLatency) {
-  try {
-    const response = await axios.post(network.url, {
-      method: 'eth_blockNumber',
-      params: [],
-      id: 1,
-      jsonrpc: '2.0'
-    })
-
-    if (response.status !== 200) {
-      setStatus('Offline')
-      return
-    }
-
-    setStatus('Online')
-    setLatency(response.duration)
-
-    const blockNumber = parseInt(response.data.result, 16)
-
-    setBlock(blockNumber)
-  } catch (error) {
-    console.error(error.message)
-  }
-}
-
-async function getClientVersion(network, setClientVersion) {
-  try {
-    const response = await axios.post(network.url, {
-      method: 'web3_clientVersion',
-      params: [],
-      id: 1,
-      jsonrpc: '2.0'
-    })
-
-    setClientVersion(response.data.result)
-  } catch (error) {
-    console.error(error.message)
-  }
-}
+import { getStatusAndBlock, getClientVersion } from './rpc'
+import styles from './Network.module.scss'
 
 export default function Network({ network }) {
   const [status, setStatus] = useState('...')
@@ -86,21 +23,27 @@ export default function Network({ network }) {
   const isOnline = status === 'Online'
 
   return (
-    <div className="network">
-      <h2>
-        {network.name} <span>{network.type}</span>
+    <div className={styles.network}>
+      <h2 className={styles.title}>
+        {network.name}
+        <span>{network.type}</span>
+        <code>{network.networkId}</code>
       </h2>
       <p>
         <code>{network.url}</code>
       </p>
-      <p className="status">
-        <span className={isOnline ? 'success' : 'error'}>{status}</span>
-        <span className="latency">{latency} ms</span>
+      <p className={styles.status}>
+        <span className={isOnline ? styles.success : styles.error}>
+          {status}
+        </span>
+        <span className={styles.latency} title="Latency">
+          {latency} ms
+        </span>
       </p>
-      <p className="block">
+      <p className={styles.block}>
         At block #<a href={`${network.explorer}/blocks/${block}`}>{block}</a>
       </p>
-      <p className="clientVersion">{clientVersion}</p>
+      <p className={styles.clientVersion}>{clientVersion}</p>
     </div>
   )
 }
@@ -108,6 +51,7 @@ export default function Network({ network }) {
 Network.propTypes = {
   network: PropTypes.shape({
     name: PropTypes.string.isRequired,
+    networkId: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
     explorer: PropTypes.string.isRequired

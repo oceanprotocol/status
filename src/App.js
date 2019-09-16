@@ -1,13 +1,13 @@
 import React from 'react'
 import { ReactComponent as Logo } from '@oceanprotocol/art/logo/logo-white.svg'
-import './App.scss'
+import styles from './App.module.scss'
 import atlas from '@ethereum-navigator/atlas'
 import Network from './Network'
 
 export default function App() {
   return (
-    <div className="App">
-      <header className="header">
+    <div className={styles.app}>
+      <header className={styles.header}>
         <Logo />
         <h1>Ocean Protocol Status</h1>
         <p>
@@ -16,7 +16,7 @@ export default function App() {
         </p>
       </header>
 
-      <div className="networks">
+      <div className={styles.networks}>
         {atlas
           .filter(
             item => item.project === 'Ocean Protocol' && item.name !== 'Spree'
