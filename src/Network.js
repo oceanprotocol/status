@@ -14,42 +14,45 @@ Network.propTypes = {
 }
 
 export default function Network({ network }) {
-  const [status, setStatus] = useState('...')
-  const [block, setBlock] = useState('...')
-  const [latency, setLatency] = useState('...')
-  const [clientVersion, setClientVersion] = useState('...')
+  const [status, setStatus] = useState('')
+  const [block, setBlock] = useState('')
+  const [latency, setLatency] = useState('')
+  const [clientVersion, setClientVersion] = useState('')
 
   useEffect(() => {
-    getStatusAndBlock(network, setStatus, setBlock, setLatency)
-    getClientVersion(network, setClientVersion)
+    async function getStatusAndBlock() {
+      const response = await axiosRpcRequest(network.url, 'eth_blockNumber')
 
-    const timer = setInterval(() => {
-      getStatusAndBlock(network, setStatus, setBlock, setLatency)
-      getClientVersion(network, setClientVersion)
-    }, 5000) // run every 5 sec.
-    return () => clearInterval(timer)
-  }, [network])
+      if (!response || response.status !== 200) {
+        setStatus('Offline')
+        return
+      }
 
-  async function getStatusAndBlock(network, setStatus, setBlock, setLatency) {
-    const response = await axiosRpcRequest(network.url, 'eth_blockNumber')
+      setStatus('Online')
+      response.duration && setLatency(response.duration)
 
-    if (response.status !== 200) {
-      setStatus('Offline')
-      return
+      const blockNumber =
+        response && response.data && parseInt(response.data.result, 16)
+
+      setBlock(blockNumber)
     }
 
-    setStatus('Online')
-    setLatency(response.duration)
+    async function getClientVersion() {
+      const response = await axiosRpcRequest(network.url, 'web3_clientVersion')
+      response && response.data && setClientVersion(response.data.result)
+    }
 
-    const blockNumber = parseInt(response.data.result, 16)
+    getStatusAndBlock()
+    getClientVersion()
 
-    setBlock(blockNumber)
-  }
-
-  async function getClientVersion(network, setClientVersion) {
-    const response = await axiosRpcRequest(network.url, 'web3_clientVersion')
-    setClientVersion(response.data.result)
-  }
+    const timer = setInterval(() => {
+      getStatusAndBlock()
+      getClientVersion()
+    }, 5000) // run every 5 sec.
+    return () => {
+      clearInterval(timer)
+    }
+  }, [network.url])
 
   const isOnline = status === 'Online'
 
@@ -57,8 +60,8 @@ export default function Network({ network }) {
     <div className={styles.network}>
       <h2 className={styles.title}>
         {network.name}
-        <span>{network.type}</span>
         <code>{network.networkId}</code>
+        <span>{network.type}</span>
       </h2>
       <p>
         <code>{network.url}</code>
@@ -67,14 +70,18 @@ export default function Network({ network }) {
         <span className={isOnline ? styles.success : styles.error}>
           {status}
         </span>
-        <span className={styles.latency} title="Latency">
-          {latency} ms
-        </span>
+        {latency && (
+          <span className={styles.latency} title="Latency">
+            {latency} ms
+          </span>
+        )}
       </p>
-      <p className={styles.block}>
-        At block #<a href={`${network.explorer}/blocks/${block}`}>{block}</a>
-      </p>
-      <p className={styles.clientVersion}>{clientVersion}</p>
+      {block && (
+        <p className={styles.block} title="Current block number">
+          At block #<a href={`${network.explorer}/blocks/${block}`}>{block}</a>
+        </p>
+      )}
+      {clientVersion && <p className={styles.clientVersion}>{clientVersion}</p>}
     </div>
   )
 }

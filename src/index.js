@@ -4,6 +4,16 @@ import './styles/global.scss'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
-ReactDOM.render(<App />, document.getElementById('root'))
+function renderToDOM() {
+  const rootElement = document.getElementById('root')
+
+  if (rootElement !== null) {
+    ReactDOM.render(<App />, rootElement)
+  }
+}
+
+export { renderToDOM }
+
+renderToDOM()
 
 serviceWorker.register()

@@ -35,7 +35,6 @@ async function axiosRpcRequest(url, method) {
 
     return response
   } catch (error) {
-    console.error(error.message)
     return error
   }
 }

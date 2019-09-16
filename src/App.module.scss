@@ -34,5 +34,6 @@ h1, h2 {
     display: grid;
     gap: $spacer;
     grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    margin-top: $spacer * 2;
+    margin: $spacer * 2 auto;
+    max-width: 80rem;
 }
