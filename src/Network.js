@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { getStatusAndBlock, getClientVersion } from './rpc'
+import { axiosRpcRequest } from './rpc'
 import styles from './Network.module.scss'
 
 Network.propTypes = {
@@ -29,6 +29,27 @@ export default function Network({ network }) {
     }, 5000) // run every 5 sec.
     return () => clearInterval(timer)
   }, [network])
+
+  async function getStatusAndBlock(network, setStatus, setBlock, setLatency) {
+    const response = await axiosRpcRequest(network.url, 'eth_blockNumber')
+
+    if (response.status !== 200) {
+      setStatus('Offline')
+      return
+    }
+
+    setStatus('Online')
+    setLatency(response.duration)
+
+    const blockNumber = parseInt(response.data.result, 16)
+
+    setBlock(blockNumber)
+  }
+
+  async function getClientVersion(network, setClientVersion) {
+    const response = await axiosRpcRequest(network.url, 'web3_clientVersion')
+    setClientVersion(response.data.result)
+  }
 
   const isOnline = status === 'Online'
 

@@ -36,28 +36,8 @@ async function axiosRpcRequest(url, method) {
     return response
   } catch (error) {
     console.error(error.message)
+    return error
   }
 }
 
-async function getStatusAndBlock(network, setStatus, setBlock, setLatency) {
-  const response = await axiosRpcRequest(network.url, 'eth_blockNumber')
-
-  if (response.status !== 200) {
-    setStatus('Offline')
-    return
-  }
-
-  setStatus('Online')
-  setLatency(response.duration)
-
-  const blockNumber = parseInt(response.data.result, 16)
-
-  setBlock(blockNumber)
-}
-
-async function getClientVersion(network, setClientVersion) {
-  const response = await axiosRpcRequest(network.url, 'web3_clientVersion')
-  setClientVersion(response.data.result)
-}
-
-export { getStatusAndBlock, getClientVersion }
+export { axiosRpcRequest }

@@ -8,17 +8,58 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/ed14f83f8328dec5da11/maintainability)](https://codeclimate.com/github/oceanprotocol/status/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/ed14f83f8328dec5da11/test_coverage)](https://codeclimate.com/github/oceanprotocol/status/test_coverage)
 
-<img width="1373" alt="Screen Shot 2019-09-16 at 14 51 28" src="https://user-images.githubusercontent.com/90316/64959471-7ff30000-d891-11e9-84be-96151bb7ea2d.png">
+<a href="https://status.oceanprotocol.com"><img width="1373" alt="Status Interface" src="https://user-images.githubusercontent.com/90316/64959471-7ff30000-d891-11e9-84be-96151bb7ea2d.png"></a>
 
+- [🦑 Features](#-features)
 - [🏄 Get Started](#-get-started)
+- [👩‍🔬 Testing](#-testing)
+- [✨ Code Style](#-code-style)
 - [🎁 Contributing](#-contributing)
 - [🏛 License](#-license)
+
+## 🦑 Features
+
+- Fetches and displays information for each of Ocean's remote RPC endpoints
+  - online/offline status
+  - current block number
+  - response time
+- current block number is linked to respective explorer
+- automatically refetch all data every 5 sec.
+- Gets network metadata from [@ethereum-navigator/atlas](https://github.com/ethereum-navigator/atlas)
 
 ## 🏄 Get Started
 
 ```bash
 npm install
 npm start
+```
+
+## 👩‍🔬 Testing
+
+Test suite is setup with [Jest](https://jestjs.io) and [react-testing-library](https://github.com/kentcdodds/react-testing-library) for unit testing.
+
+To run all linting and unit tests:
+
+```bash
+npm test
+```
+
+For local development, you can start the test runner in a watch mode.
+
+```bash
+npm run test:watch
+```
+
+## ✨ Code Style
+
+For linting and auto-formatting you can use from the root of the project:
+
+```bash
+# lint all js with eslint
+npm run lint
+
+# auto format all js & css with prettier, taking all configs into account
+npm run format
 ```
 
 ## 🎁 Contributing
