@@ -3,6 +3,16 @@ import PropTypes from 'prop-types'
 import { getStatusAndBlock, getClientVersion } from './rpc'
 import styles from './Network.module.scss'
 
+Network.propTypes = {
+  network: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    networkId: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+    explorer: PropTypes.string.isRequired
+  })
+}
+
 export default function Network({ network }) {
   const [status, setStatus] = useState('...')
   const [block, setBlock] = useState('...')
@@ -46,14 +56,4 @@ export default function Network({ network }) {
       <p className={styles.clientVersion}>{clientVersion}</p>
     </div>
   )
-}
-
-Network.propTypes = {
-  network: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    networkId: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-    explorer: PropTypes.string.isRequired
-  })
 }
