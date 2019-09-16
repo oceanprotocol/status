@@ -1,6 +1,8 @@
 {
   "name": "@oceanprotocol/status",
+  "description": "Overview and status checks of all Ocean Protocol RPC network connections.",
   "version": "0.1.0",
+  "license": "Apache-2.0",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -21,6 +23,10 @@
     "eslint-plugin-prettier": "^3.1.0",
     "node-sass": "^4.12.0",
     "prettier": "^1.18.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oceanprotocol/status"
   },
   "browserslist": {
     "production": [
