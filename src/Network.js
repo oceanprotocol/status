@@ -8,8 +8,8 @@ Network.propTypes = {
     name: PropTypes.string.isRequired,
     networkId: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-    explorer: PropTypes.string.isRequired
+    rpcUrl: PropTypes.string.isRequired,
+    explorerUrl: PropTypes.string.isRequired
   })
 }
 
@@ -21,7 +21,7 @@ export default function Network({ network }) {
 
   useEffect(() => {
     async function getStatusAndBlock() {
-      const response = await axiosRpcRequest(network.url, 'eth_blockNumber')
+      const response = await axiosRpcRequest(network.rpcUrl, 'eth_blockNumber')
 
       if (!response || response.status !== 200) {
         setStatus('Offline')
@@ -38,7 +38,10 @@ export default function Network({ network }) {
     }
 
     async function getClientVersion() {
-      const response = await axiosRpcRequest(network.url, 'web3_clientVersion')
+      const response = await axiosRpcRequest(
+        network.rpcUrl,
+        'web3_clientVersion'
+      )
       response && response.data && setClientVersion(response.data.result)
     }
 
@@ -64,7 +67,7 @@ export default function Network({ network }) {
         <span>{network.type}</span>
       </h2>
       <p>
-        <code>{network.url}</code>
+        <code>{network.rpcUrl}</code>
       </p>
       <p className={styles.status}>
         <span className={isOnline ? styles.success : styles.error}>
@@ -78,7 +81,8 @@ export default function Network({ network }) {
       </p>
       {block && (
         <p className={styles.block} title="Current block number">
-          At block #<a href={`${network.explorer}/blocks/${block}`}>{block}</a>
+          At block #
+          <a href={`${network.explorerUrl}/blocks/${block}`}>{block}</a>
         </p>
       )}
       {clientVersion && <p className={styles.clientVersion}>{clientVersion}</p>}
