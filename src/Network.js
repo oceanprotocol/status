@@ -52,7 +52,7 @@ export default function Network({ network }) {
     return () => {
       clearInterval(timer)
     }
-  }, [network.url])
+  }, [network])
 
   const isOnline = status === 'Online'
 

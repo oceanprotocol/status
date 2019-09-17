@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitForElement } from '@testing-library/react'
+import { render, wait } from '@testing-library/react'
 import mockAxios from 'axios'
 import Network from './Network'
 
@@ -11,6 +11,7 @@ const mockResponse = {
 
 afterEach(() => {
   mockAxios.reset()
+  jest.clearAllTimers()
 })
 
 describe('Network', () => {
@@ -24,11 +25,26 @@ describe('Network', () => {
   }
 
   it('renders without crashing', async () => {
-    mockAxios.post.mockResolvedValueOnce(mockResponse)
-
-    const { container, getByTitle } = render(<Network network={network} />)
+    mockAxios.post.mockResolvedValue(mockResponse)
+    const { container } = render(<Network network={network} />)
     expect(container.firstChild).toBeInTheDocument()
-    await waitForElement(() => getByTitle('Current block number'))
+    await wait()
     expect(mockAxios.post).toHaveBeenCalledTimes(2)
+  })
+
+  it('renders without response', async () => {
+    mockAxios.post.mockResolvedValue(undefined)
+    const { container } = render(<Network network={network} />)
+    await wait()
+    expect(container.firstChild).toBeInTheDocument()
+  })
+
+  it('re-fetches after 5 sec.', async () => {
+    jest.useFakeTimers()
+    mockAxios.post.mockResolvedValue(mockResponse)
+    render(<Network network={network} />)
+    jest.advanceTimersByTime(6000)
+    await wait()
+    expect(setInterval).toHaveBeenCalledTimes(1)
   })
 })

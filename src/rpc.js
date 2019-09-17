@@ -1,5 +1,22 @@
 import axios from 'axios'
 
+async function axiosRpcRequest(url, method) {
+  try {
+    const response = await axios.post(url, {
+      method,
+      params: [],
+      id: 1,
+      jsonrpc: '2.0'
+    })
+
+    return response
+  } catch (error) {
+    return error
+  }
+}
+
+export { axiosRpcRequest }
+
 // Measure response time and deliver as `response.duration`
 axios.interceptors.request.use(
   config => {
@@ -23,20 +40,3 @@ axios.interceptors.response.use(
     return Promise.reject(error)
   }
 )
-
-async function axiosRpcRequest(url, method) {
-  try {
-    const response = await axios.post(url, {
-      method,
-      params: [],
-      id: 1,
-      jsonrpc: '2.0'
-    })
-
-    return response
-  } catch (error) {
-    return error
-  }
-}
-
-export { axiosRpcRequest }
