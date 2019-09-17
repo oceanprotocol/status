@@ -20,8 +20,8 @@ describe('Network', () => {
     project: 'Ocean Protocol',
     type: 'mainnet',
     networkId: '0xCEA11',
-    url: 'https://pacific.oceanprotocol.com',
-    explorer: 'https://submarine.oceanprotocol.com'
+    rpcUrl: 'https://pacific.oceanprotocol.com',
+    explorerUrl: 'https://submarine.oceanprotocol.com'
   }
 
   it('renders without crashing', async () => {
