@@ -1,0 +1,30 @@
+.networkData {
+  min-height: 66px;
+}
+
+.block a {
+  color: var(--brand-grey-lighter);
+}
+
+.status {
+  font-size: var(--font-size-large);
+  margin-bottom: 0;
+}
+
+.success {
+  color: var(--green);
+}
+
+.error {
+  color: var(--red);
+}
+
+.latency {
+  display: inline-block;
+  margin-left: calc(var(--spacer) / 4);
+  font-size: var(--font-size-mini);
+}
+
+.clientVersion {
+  font-size: var(--font-size-mini);
+}

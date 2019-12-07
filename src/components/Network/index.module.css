@@ -1,0 +1,32 @@
+.network {
+  border: 1px solid var(--brand-grey-dark);
+  padding: var(--spacer);
+  border-radius: var(--border-radius);
+  text-align: left;
+}
+
+.network p:last-child {
+  margin-bottom: 0;
+}
+
+.networkHeader {
+  margin-bottom: var(--spacer);
+}
+
+.title {
+  margin-bottom: calc(var(--spacer) / 8);
+  margin-top: 0;
+  font-size: var(--font-size-h2);
+}
+
+.title span,
+.title code {
+  color: var(--brand-grey-light);
+  font-size: var(--font-size-base);
+  display: inline-block;
+  margin-left: calc(var(--spacer) / 2);
+}
+
+.title code {
+  font-weight: var(--font-weight-base);
+}

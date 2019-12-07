@@ -1,6 +1,18 @@
-import axios from 'axios'
+import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
 
-async function axiosRpcRequest(url, method) {
+export interface AxiosRequestConfigCustom extends AxiosRequestConfig {
+  metadata?: {
+    startTime: number | Date
+    endTime?: number | Date
+  }
+}
+
+export interface AxiosResponseCustom extends AxiosResponse {
+  duration?: number
+  config: AxiosRequestConfigCustom
+}
+
+async function fetchRpc(url: string, method: string) {
   try {
     const response = await axios.post(url, {
       method,
@@ -15,11 +27,11 @@ async function axiosRpcRequest(url, method) {
   }
 }
 
-export { axiosRpcRequest }
+export { fetchRpc }
 
 // Measure response time and deliver as `response.duration`
 axios.interceptors.request.use(
-  config => {
+  (config: AxiosRequestConfigCustom) => {
     config.metadata = { startTime: new Date() }
     return config
   },
@@ -27,7 +39,7 @@ axios.interceptors.request.use(
 )
 
 axios.interceptors.response.use(
-  response => {
+  (response: any) => {
     response.config.metadata.endTime = new Date()
     response.duration =
       response.config.metadata.endTime - response.config.metadata.startTime

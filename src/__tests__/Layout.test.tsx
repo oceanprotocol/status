@@ -1,10 +1,10 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import App from './App'
+import Layout from '../Layout'
 
-describe('App', () => {
+describe('Layout', () => {
   it('renders without crashing', () => {
-    const { container } = render(<App />)
+    const { container } = render(<Layout pageTitle="Hello">Hello</Layout>)
     expect(container.firstChild).toBeInTheDocument()
   })
 })

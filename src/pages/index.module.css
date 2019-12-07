@@ -1,0 +1,33 @@
+h1,
+h2 {
+  color: var(--brand-white);
+}
+
+.header {
+  text-align: center;
+  margin-top: var(--spacer);
+}
+
+.header h1 {
+  margin-bottom: calc(var(--spacer) / 2);
+}
+
+.header p {
+  font-size: var(--font-size-large);
+  color: var(--brand-white);
+  margin: auto;
+  max-width: 35rem;
+}
+
+.header svg {
+  width: 75px;
+  height: 75px;
+}
+
+.networks {
+  display: grid;
+  gap: var(--spacer);
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  margin: calc(var(--spacer) * 2) auto;
+  max-width: 80rem;
+}

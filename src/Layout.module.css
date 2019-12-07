@@ -1,0 +1,14 @@
+.app {
+  padding: var(--spacer);
+  background: var(--brand-black);
+  min-height: 100vh;
+}
+
+@media screen and (min-width: 640px) {
+  .app {
+    padding: calc(var(--spacer) * 2);
+    padding-bottom: var(--spacer);
+    height: auto;
+    min-height: calc(100vh - var(--page-frame) * 2);
+  }
+}
