@@ -1,5 +1,5 @@
 module.exports = {
-  preset: 'ts-jest/presets/js-with-babel',
+  preset: 'ts-jest/presets/js-with-ts',
   setupFilesAfterEnv: ['<rootDir>/jest/setup.ts'],
   globals: {
     'ts-jest': {
@@ -12,7 +12,12 @@ module.exports = {
       '<rootDir>/jest/__mocks__/fileMock.js',
     '\\.svg': '<rootDir>/jest/__mocks__/svgrMock.js'
   },
-  testPathIgnorePatterns: ['.next/', 'node_modules/', 'build/', 'coverage/'],
+  testPathIgnorePatterns: [
+    '<rootDir>/.next',
+    '<rootDir>/node_modules',
+    '<rootDir>/build',
+    '<rootDir>/coverage'
+  ],
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/@types/**/*'],
   collectCoverage: true
 }
