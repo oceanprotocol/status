@@ -26,7 +26,7 @@ export default function Info({
       )}
       {gasPrice && (
         <p>
-          Gas Prize <span>{gasPrice} Gwei</span>
+          Gas Price <span>{gasPrice} Gwei</span>
         </p>
       )}
       {clientVersion && <p className={styles.clientVersion}>{clientVersion}</p>}
