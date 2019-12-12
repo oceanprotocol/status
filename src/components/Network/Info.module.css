@@ -1,0 +1,18 @@
+.moreInfo {
+  font-size: var(--font-size-mini);
+}
+
+.moreInfo p {
+  margin-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.moreInfo span {
+  color: var(--brand-grey-lighter);
+}
+
+.clientVersion {
+  margin-top: var(--spacer);
+  font-size: var(--font-size-mini);
+}

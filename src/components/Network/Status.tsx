@@ -1,25 +1,37 @@
 import React, { useState, useEffect } from 'react'
-import { fetchRpc, AxiosResponseCustom } from '../../rpc'
+import { fetchRpc } from '../../rpc'
 import Spinner from '../Spinner'
 import { NetworkProps } from '.'
-import styles from './Data.module.css'
+import styles from './Status.module.css'
+import Info from './Info'
+import { getClientVersion, getGasPrize, getPeers } from './utils'
 
-export default function Data({ network }: { network: NetworkProps }) {
+export default function Status({ network }: { network: NetworkProps }) {
   const { rpcUrl, explorerUrl } = network
   const [status, setStatus] = useState('')
   const [block, setBlock] = useState(0)
   const [latency, setLatency] = useState(0)
+  const [gasLimit, setGasLimit] = useState()
   const [clientVersion, setClientVersion] = useState('')
+  const [gasPrice, setGasPrice] = useState()
+  const [peers, setPeers] = useState()
 
   async function getStatusAndBlock() {
     if (!rpcUrl) return
 
-    const response: AxiosResponseCustom = await fetchRpc(
-      rpcUrl,
-      'eth_blockNumber'
-    )
+    const response = await fetchRpc(rpcUrl, 'eth_getBlockByNumber', [
+      'latest',
+      true
+    ])
 
-    if (!response || response.status !== 200) {
+    const responseParity = await fetchRpc(rpcUrl, 'parity_mode')
+
+    if (
+      !response ||
+      !response.data ||
+      response.status !== 200 ||
+      responseParity.data.result !== 'active'
+    ) {
       setStatus('Offline')
       return
     }
@@ -27,29 +39,26 @@ export default function Data({ network }: { network: NetworkProps }) {
     setStatus('Online')
     response.duration && setLatency(response.duration)
 
-    const blockNumber =
-      response && response.data && parseInt(response.data.result, 16)
-    setBlock(blockNumber)
+    const { number, gasLimit } = response.data.result
+    setBlock(parseInt(number, 16))
+    setGasLimit(parseInt(gasLimit, 16))
   }
 
-  async function getClientVersion() {
+  async function getData() {
+    getStatusAndBlock()
+
     if (!rpcUrl) return
 
-    const response: AxiosResponseCustom = await fetchRpc(
-      rpcUrl,
-      'web3_clientVersion'
-    )
-
-    response && response.data && setClientVersion(response.data.result)
+    setClientVersion(await getClientVersion(rpcUrl))
+    setGasPrice(await getGasPrize(rpcUrl))
+    setPeers(await getPeers(rpcUrl))
   }
 
   useEffect(() => {
-    getStatusAndBlock()
-    getClientVersion()
+    getData()
 
     const timer = setInterval(() => {
-      getStatusAndBlock()
-      getClientVersion()
+      getData()
     }, 5000) // run every 5 sec.
     return () => {
       clearInterval(timer)
@@ -77,9 +86,13 @@ export default function Data({ network }: { network: NetworkProps }) {
               At block #<a href={`${explorerUrl}/blocks/${block}`}>{block}</a>
             </p>
           )}
-          {clientVersion && (
-            <p className={styles.clientVersion}>{clientVersion}</p>
-          )}
+
+          <Info
+            gasPrice={gasPrice}
+            gasLimit={gasLimit}
+            clientVersion={clientVersion}
+            peers={peers}
+          />
         </>
       ) : (
         <Spinner />

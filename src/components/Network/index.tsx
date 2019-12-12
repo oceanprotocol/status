@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './index.module.css'
-import Data from './Data'
+import Status from './Status'
 
 export interface NetworkProps {
   name: string
@@ -26,7 +26,7 @@ export default function Network({ network }: { network: NetworkProps }) {
         </p>
       </header>
 
-      <Data network={network} />
+      <Status network={network} />
     </div>
   )
 }

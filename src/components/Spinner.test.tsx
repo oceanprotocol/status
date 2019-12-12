@@ -1,10 +1,10 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import Layout from '../Layout'
+import Spinner from './Spinner'
 
-describe('Layout', () => {
+describe('Spinner', () => {
   it('renders without crashing', () => {
-    const { container } = render(<Layout pageTitle="Hello">Hello</Layout>)
+    const { container } = render(<Spinner message="Hello" />)
     expect(container.firstChild).toBeInTheDocument()
   })
 })

@@ -12,11 +12,11 @@ export interface AxiosResponseCustom extends AxiosResponse {
   config: AxiosRequestConfigCustom
 }
 
-async function fetchRpc(url: string, method: string) {
+async function fetchRpc(url: string, method: string, params?: any[]) {
   try {
-    const response = await axios.post(url, {
+    const response: AxiosResponseCustom = await axios.post(url, {
       method,
-      params: [],
+      params,
       id: 1,
       jsonrpc: '2.0'
     })

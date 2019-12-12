@@ -1,7 +1,7 @@
 .spinner {
   position: relative;
   text-align: center;
-  margin-top: calc(var(--spacer) * 2);
+  margin-top: calc(var(--spacer) * 3);
   line-height: 1.3;
 }
 

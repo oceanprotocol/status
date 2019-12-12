@@ -1,14 +1,22 @@
 .networkData {
-  min-height: 66px;
+  min-height: 105px;
+}
+
+.status {
+  font-size: var(--font-size-large);
+  margin-bottom: calc(var(--spacer) / 8);
+}
+
+.block {
+  margin-bottom: var(--spacer);
 }
 
 .block a {
   color: var(--brand-grey-lighter);
 }
 
-.status {
-  font-size: var(--font-size-large);
-  margin-bottom: 0;
+.block a:hover {
+  color: var(--brand-pink);
 }
 
 .success {
@@ -22,9 +30,5 @@
 .latency {
   display: inline-block;
   margin-left: calc(var(--spacer) / 4);
-  font-size: var(--font-size-mini);
-}
-
-.clientVersion {
   font-size: var(--font-size-mini);
 }
