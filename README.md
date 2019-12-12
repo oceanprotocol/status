@@ -6,7 +6,7 @@
 
 [![Build Status](https://travis-ci.com/oceanprotocol/status.svg?branch=master)](https://travis-ci.com/oceanprotocol/status)
 [![Maintainability](https://api.codeclimate.com/v1/badges/ed14f83f8328dec5da11/maintainability)](https://codeclimate.com/github/oceanprotocol/status/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/ed14f83f8328dec5da11/test_coverage)](https://codeclimate.com/github/oceanprotocol/status/test_coverage)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/ed14f83f8328dec5da11/test_coverage)](https://codeclimate.com/github/oceanprotocol/status/test_coverage) [![Greenkeeper badge](https://badges.greenkeeper.io/oceanprotocol/status.svg)](https://greenkeeper.io/)
 
 <a href="https://status.oceanprotocol.com"><img width="1373" alt="Status Interface" src="https://user-images.githubusercontent.com/90316/64959471-7ff30000-d891-11e9-84be-96151bb7ea2d.png"></a>
 
