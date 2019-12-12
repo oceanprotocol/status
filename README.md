@@ -12,26 +12,50 @@
 
 - [🦑 Features](#-features)
 - [🏄 Get Started](#-get-started)
-- [👩‍🔬 Testing](#-testing)
 - [✨ Code Style](#-code-style)
+- [👩‍🔬 Testing](#-testing)
+- [🛳 Production](#-production)
+- [⬆️ Deployment](#️-deployment)
+  - [Manual Deployment](#manual-deployment)
 - [🎁 Contributing](#-contributing)
 - [🏛 License](#-license)
 
 ## 🦑 Features
 
-- Fetches and displays information for each of Ocean's remote RPC endpoints
-  - online/offline status
-  - current block number
-  - response time
+- Fetches and displays information for each of Ocean's remote RPC endpoints via [Parity JSON-RPC API](https://wiki.parity.io/JSONRPC) responses
+  - online/offline status (`eth_getBlockByNumber` & `parity_mode`)
+  - current block number (`eth_getBlockByNumber`)
+  - response time (custom `axios` interceptor)
+  - connected peers (`net_peerCount`)
+  - gas limit (`eth_getBlockByNumber`)
+  - gas price (`eth_gasPrice`)
+  - parity version (`web3_clientVersion`)
 - current block number is linked to respective explorer
-- automatically refetch all data every 5 sec.
+- automatically refetches all data every 5 sec.
 - Gets network metadata from [@ethereum-navigator/atlas](https://github.com/ethereum-navigator/atlas)
 
 ## 🏄 Get Started
 
+The app is a React app built with [Next.js](https://nextjs.org). To start local development:
+
 ```bash
+git clone git@github.com:oceanprotocol/status.git
+cd status
+
 npm install
 npm start
+```
+
+## ✨ Code Style
+
+For linting and auto-formatting you can use from the root of the project:
+
+```bash
+# lint all js with eslint
+npm run lint
+
+# auto format all js & css with prettier, taking all configs into account
+npm run format
 ```
 
 ## 👩‍🔬 Testing
@@ -50,16 +74,43 @@ For local development, you can start the test runner in a watch mode.
 npm run test:watch
 ```
 
-## ✨ Code Style
-
-For linting and auto-formatting you can use from the root of the project:
+For analyzing the generated JavaScript bundle sizes you can use:
 
 ```bash
-# lint all js with eslint
-npm run lint
+npm run analyze
+```
 
-# auto format all js & css with prettier, taking all configs into account
-npm run format
+## 🛳 Production
+
+To create a production build, run from the root of the project:
+
+```bash
+npm run build
+# serve production build
+npm run serve
+```
+
+Outputs to `./public`.
+
+## ⬆️ Deployment
+
+Every branch or Pull Request is automatically deployed by [Now](https://zeit.co/now) with their GitHub integration. A link to a deployment will appear under each Pull Request.
+
+The latest deployment of the `master` branch is automatically aliased to `status.oceanprotocol.com`.
+
+### Manual Deployment
+
+If needed, app can be deployed manually. Make sure to switch to Ocean Protocol org before deploying:
+
+```bash
+# first run
+now login
+now switch
+
+# deploy
+now
+# switch alias to new deployment
+now alias
 ```
 
 ## 🎁 Contributing
