@@ -14,7 +14,7 @@
     "format": "prettier --ignore-path .gitignore **/**/*.{css,yml,js,jsx,ts,tsx,json} --write"
   },
   "dependencies": {
-    "@ethereum-navigator/atlas": "^0.5.1",
+    "@ethereum-navigator/atlas": "^0.6.0",
     "@oceanprotocol/art": "^2.2.0",
     "@oceanprotocol/typographies": "^0.1.0",
     "axios": "^0.19.2",
