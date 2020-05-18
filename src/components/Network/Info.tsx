@@ -7,10 +7,10 @@ export default function Info({
   clientVersion,
   peers
 }: {
-  gasPrice: string
-  gasLimit: string
+  gasPrice: number | null
+  gasLimit: number | null
   clientVersion: string
-  peers: number
+  peers: number | null
 }) {
   return (
     <div className={styles.moreInfo}>

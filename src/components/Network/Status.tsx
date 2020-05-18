@@ -9,12 +9,12 @@ import { getClientVersion, getGasPrize, getPeers } from './utils'
 export default function Status({ network }: { network: NetworkProps }) {
   const { rpcUrl, explorerUrl } = network
   const [status, setStatus] = useState('')
-  const [block, setBlock] = useState(0)
-  const [latency, setLatency] = useState(0)
-  const [gasLimit, setGasLimit] = useState()
+  const [block, setBlock] = useState<number | null>(0)
+  const [latency, setLatency] = useState<number | null>(0)
+  const [gasLimit, setGasLimit] = useState<number | null>(0)
   const [clientVersion, setClientVersion] = useState('')
-  const [gasPrice, setGasPrice] = useState()
-  const [peers, setPeers] = useState()
+  const [gasPrice, setGasPrice] = useState<number | null>(0)
+  const [peers, setPeers] = useState<number | null>(0)
 
   async function getStatusAndBlock() {
     if (!rpcUrl) return
@@ -69,7 +69,7 @@ export default function Status({ network }: { network: NetworkProps }) {
 
   return (
     <div className={styles.networkData}>
-      {block > 0 ? (
+      {block && block > 0 ? (
         <>
           <h2 className={styles.status}>
             <span className={isOnline ? styles.success : styles.error}>
