@@ -26,7 +26,7 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "^9.4.1",
+    "@next/bundle-analyzer": "^9.4.2",
     "@testing-library/jest-dom": "^5.7.0",
     "@testing-library/react": "^10.0.4",
     "@types/bn.js": "^4.11.6",
