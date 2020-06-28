@@ -19,7 +19,9 @@ export default function Home() {
         {atlas
           .filter(
             (item: NetworkProps) =>
-              item.project === 'Ocean Protocol' && item.name !== 'Spree'
+              item.project === 'Ocean Protocol' &&
+              item.name !== 'Spree' &&
+              item.name !== 'Duero'
           )
           .reverse()
           .map((network: NetworkProps) => (

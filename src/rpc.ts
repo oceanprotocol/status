@@ -35,7 +35,7 @@ axios.interceptors.request.use(
     config.metadata = { startTime: new Date() }
     return config
   },
-  error => Promise.reject(error)
+  (error) => Promise.reject(error)
 )
 
 axios.interceptors.response.use(
@@ -45,7 +45,7 @@ axios.interceptors.response.use(
       response.config.metadata.endTime - response.config.metadata.startTime
     return response
   },
-  error => {
+  (error) => {
     error.config.metadata.endTime = new Date()
     error.duration =
       error.config.metadata.endTime - error.config.metadata.startTime
