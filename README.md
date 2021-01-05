@@ -120,7 +120,7 @@ See the page titled "[Ways to Contribute](https://docs.oceanprotocol.com/concept
 ## 🏛 License
 
 ```text
-Copyright 2019 Ocean Protocol Foundation Ltd.
+Copyright ((C)) 2021 Ocean Protocol Foundation Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
